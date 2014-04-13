@@ -11,10 +11,20 @@ public class Print {
 
     public Print() {
 
+        //{"print", {"asText"} }
+
     }
 
     public ArrayList AnalyzeElement(Element e) {
 
+        ArrayList Parameter = new ArrayList();
+        ArrayList tmp = new ArrayList();
+
+        tmp.add("print");
+        Parameter.add(e.getAttribute("type"));
+
+        tmp.add(Parameter);
+        return tmp;
     }
 
 }

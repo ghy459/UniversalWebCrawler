@@ -24,10 +24,18 @@ public class Reader {
     public Reader(String FileName) throws IOException, SAXException, ParserConfigurationException, InterruptedException {
 
         this.FileName = FileName;
-        this.openXMLFile();
-        this.setXMLDocument();
-        this.setWebsiteName();
-        this.setStepList();
+
+        this.openXMLFile();      //打开xml文件
+        this.setXMLDocument();   //获取xml dom结构
+        this.setWebsiteName();   //获取网站名称
+        this.setStepList();      //获取抓取步骤
+        this.setTaskList();      //形成任务队列
+    }
+
+    public void setTaskList() {
+
+        this.TaskList = new Util().TaskList(this.getStepList());
+
     }
 
     public void setStepList() throws InterruptedException {
@@ -63,6 +71,11 @@ public class Reader {
     public Document getXMLDocument() {
 
         return this.XMLDocument;
+    }
+
+    public String getWebsiteName() {
+
+        return this.WebsiteName;
     }
 
     public ArrayList getStepList() {
