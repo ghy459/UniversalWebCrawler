@@ -29,10 +29,10 @@ public class Reader {
         this.setXMLDocument();   //获取xml dom结构
         this.setWebsiteName();   //获取网站名称
         this.setStepList();      //获取抓取步骤
-        this.setTaskList();      //形成任务队列
+        this.setTaskList();      //创建任务队列
     }
 
-    public void setTaskList() {
+    public void setTaskList() throws InterruptedException {
 
         this.TaskList = new Util().TaskList(this.getStepList());
 

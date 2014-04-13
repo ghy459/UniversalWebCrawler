@@ -1,5 +1,6 @@
 import XMLReader.Reader;
 import org.xml.sax.SAXException;
+import WebCrawler.Crawler;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
@@ -29,7 +30,7 @@ public class UniversalWebCrawler {  //程序入口
         }
 
         Reader r = new Reader(FileName);
-
+        new Crawler(r.getTaskList());
 
     }
 

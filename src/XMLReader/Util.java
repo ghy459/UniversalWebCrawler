@@ -54,7 +54,7 @@ public class Util {
         return a;
     }
 
-    public ArrayList TaskList(ArrayList a) {
+    public ArrayList TaskList(ArrayList a) throws InterruptedException {
 
         ArrayList<ArrayList> tl = new ArrayList<>();
         for (Object anA : a) {
@@ -85,7 +85,22 @@ public class Util {
 
             }
         }
+        //print(tl);
+        //Thread.sleep(1000 * 5);
         return tl;
+    }
+
+    public void print(ArrayList a) {
+
+        for (Object anA : a) {
+            if (anA.getClass().getName().equals("ArrayList")) {
+                print((ArrayList) anA);
+            }
+            else {
+                System.out.println(anA);
+            }
+        }
+
     }
 
 }
