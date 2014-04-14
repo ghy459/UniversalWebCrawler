@@ -29,6 +29,7 @@ public class Crawler {
     private HtmlPage htmlPage;
     private DomElement domElement;
     private DomNodeList domNodeList;
+    private ArrayList domArray;
 
     private String NowType = "";
 
@@ -69,14 +70,17 @@ public class Crawler {
 
                 case "form":
                     setHtmlPage(new Form().ExecTask((ArrayList) this.Task.get(1), this.getHtmlPage()));
-                    //System.out.println(this.getHtmlPage().getUrl().toString());
-                    //Thread.sleep(1000 * 5);
                     break;
                 case "page":
                     setHtmlPage(new Page().ExecTask((ArrayList) this.Task.get(1), this.getWebClient()));
                     break;
                 case "print":
-                    tl.add(new Print().AnalyzeElement(e));
+                    if (this.getNowType().equals("DomElement")) {
+                        new Print().ExecTask((ArrayList) this.Task.get(1), this.getDomElement());
+                    }
+                    else {
+                        new Print().ExecTask((ArrayList) this.Task.get(1), this.getDomArray());
+                    }
                     break;
                 case "search":
                     if (this.getNowType().equals("DomElement")) {
@@ -105,8 +109,8 @@ public class Crawler {
                     if (this.getNowType().equals("DomElement")) {
                         this.setDomElement((DomElement) a.get(1));
                     }
-                    else if (this.getNowType().equals("DomNodeList")) {
-                        this.setDomNodeList((DomNodeList) a.get(1));
+                    else if (this.getNowType().equals("ArrayList")) {
+                        this.setDomArray((ArrayList) a.get(1));
                     }
                     else {
 
@@ -116,6 +120,11 @@ public class Crawler {
                     break;
             }
 
+    }
+
+    public ArrayList getDomArray() {
+
+        return this.domArray;
     }
 
     public String getNowType() {
@@ -166,6 +175,11 @@ public class Crawler {
     public void setNowType (String NowType) {
 
         this.NowType = NowType;
+    }
+
+    public void setDomArray (ArrayList domArray) {
+
+        this.domArray = domArray;
     }
 
 }

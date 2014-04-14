@@ -1,5 +1,7 @@
 package Motion;
 
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNode;
 import org.w3c.dom.Element;
 
 import java.util.ArrayList;
@@ -25,6 +27,30 @@ public class Print {
 
         tmp.add(Parameter);
         return tmp;
+    }
+
+    public void ExecTask(ArrayList a, ArrayList nl) {
+
+        if (((String) a.get(0)).equals("asText")) {
+            for (Object anE : nl) {
+                DomNode e = (DomElement) anE;
+                System.out.println(e.asText());
+            }
+        }
+        else {
+
+        }
+    }
+
+    public void ExecTask(ArrayList a, DomElement e) {
+
+        if (((String) a.get(0)).equals("asText")) {
+            System.out.println(e.asText());
+        }
+        else {
+
+        }
+
     }
 
 }

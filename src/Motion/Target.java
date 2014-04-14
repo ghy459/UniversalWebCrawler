@@ -33,7 +33,7 @@ public class Target {
 
     }
 
-    public ArrayList ExecTask(ArrayList a, DomNodeList nl) {
+    public ArrayList ExecTask(ArrayList a, DomNodeList nl) throws InterruptedException {
 
         String s = (String) a.get(0);
         String e = (String) a.get(1);
@@ -67,17 +67,19 @@ public class Target {
             DomElement de = (DomElement) nl.item(i);
             tmp.add(de);
         }
-        DomNodeList r = (DomNodeList) tmp;
-        tmp = new ArrayList();
+        //DomNodeList r = (DomNodeList) tmp;
+        //System.out.println(end - start);
+        //Thread.sleep(1000 * 5);
+        ArrayList r = new ArrayList();
         if (end - start == 1) {
-            tmp.add("DomElement");
-            tmp.add(r.item(0));
+            r.add("DomElement");
+            r.add(tmp.get(0));
         }
         else {
-            tmp.add("DomNodeList");
-            tmp.add(r);
+            r.add("ArrayList");
+            r.add(tmp);
         }
-        return tmp;
+        return r;
     }
 
 }
