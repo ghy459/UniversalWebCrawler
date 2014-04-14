@@ -1,6 +1,12 @@
 package XMLReader;
 
-import Motion.*;
+import Motion.Form;
+import Motion.Page;
+import Motion.Print;
+import Motion.Search;
+import Motion.Sleep;
+import Motion.Target;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,7 +27,6 @@ public class Util {
 
     public Util() {
 
-        ///Users/ghy459/Desktop/tmall.xml
     }
 
     public File OpenFile(String FileName) {

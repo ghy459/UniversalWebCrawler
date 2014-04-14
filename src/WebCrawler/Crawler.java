@@ -1,11 +1,13 @@
 package WebCrawler;
 
-import Motion.*;
+import Motion.Form;
+import Motion.Page;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -20,7 +22,9 @@ public class Crawler {
     private WebClient webClient;
     private HtmlPage htmlPage;
 
-    public Crawler(ArrayList TaskQueue) {
+    ///Users/ghy459/Desktop/qunar.xml
+
+    public Crawler(ArrayList TaskQueue) throws IOException, InterruptedException {
 
         this.TaskQueue = TaskQueue;
 
@@ -34,11 +38,11 @@ public class Crawler {
         this.webClient.getOptions().setJavaScriptEnabled(true);
         this.webClient.getOptions().setThrowExceptionOnScriptError(false);
         this.webClient.getOptions().setPrintContentOnFailingStatusCode(false);
-        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log","org.apache.commons.logging.impl.NoOpLog");
+        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
         java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
     }
 
-    public void AnalyzeTaskQueue() {
+    public void AnalyzeTaskQueue() throws IOException, InterruptedException {
 
         for (Object aTask : this.TaskQueue) {
             this.Task = (ArrayList) aTask;
@@ -46,18 +50,21 @@ public class Crawler {
         }
     }
 
-    public void AnalyzeTask() {
+    public void AnalyzeTask() throws IOException, InterruptedException {
 
-        for (Object o : this.Task) {
-            ArrayList a = (ArrayList) o;
-            switch ((String) a.get(0)) {
+
+            //ArrayList a = (ArrayList) o;
+            switch ((String) this.Task.get(0)) {
 
                 case "form":
-                    setWebClient(new Form().ExecTask(this.getWebClient()));
+                    setHtmlPage(new Form().ExecTask((ArrayList) this.Task.get(1), this.getHtmlPage()));
+                    System.out.println(this.getHtmlPage().getUrl().toString());
+                    Thread.sleep(1000 * 5);
                     break;
                 case "page":
-                    setWebClient(new Page().ExecTask(this.getWebClient()));
+                    setHtmlPage(new Page().ExecTask((ArrayList) this.Task.get(1), this.getWebClient()));
                     break;
+                /*
                 case "print":
                     tl.add(new Print().AnalyzeElement(e));
                     break;
@@ -70,10 +77,16 @@ public class Crawler {
                 case "target":
                     tl.add(new Target().AnalyzeElement(e));
                     break;
+                */
                 default:
                     break;
             }
-        }
+
+    }
+
+    public HtmlPage getHtmlPage() {
+
+        return this.htmlPage;
     }
 
     public WebClient getWebClient() {
@@ -84,6 +97,11 @@ public class Crawler {
     public void setWebClient(WebClient webClient) {
 
         this.webClient = webClient;
+    }
+
+    public void setHtmlPage(HtmlPage htmlPage) {
+
+        this.htmlPage = htmlPage;
     }
 
 }

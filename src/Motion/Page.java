@@ -1,7 +1,10 @@
 package Motion;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.w3c.dom.Element;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +29,11 @@ public class Page {
         tmp.add(Parameter);
         return tmp;
 
+    }
+
+    public HtmlPage ExecTask(ArrayList Parameter, WebClient webClient) throws IOException {
+
+        return webClient.getPage((String) Parameter.get(0));
     }
 
 }
