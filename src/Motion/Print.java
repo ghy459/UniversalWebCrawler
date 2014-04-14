@@ -46,6 +46,7 @@ public class Print {
 
         if (((String) a.get(0)).equals("asText")) {
             System.out.println(e.asText());
+
         }
         else {
 
