@@ -28,4 +28,10 @@ public class Sleep {
 
     }
 
+    public void ExecTask(ArrayList a) throws InterruptedException {
+
+        String time = (String) a.get(0);
+        Thread.sleep(1000 * Integer.parseInt(time));
+    }
+
 }

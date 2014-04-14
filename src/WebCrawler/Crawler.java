@@ -2,8 +2,14 @@ package WebCrawler;
 
 import Motion.Form;
 import Motion.Page;
+import Motion.Print;
+import Motion.Search;
+import Motion.Sleep;
+import Motion.Target;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,6 +27,10 @@ public class Crawler {
 
     private WebClient webClient;
     private HtmlPage htmlPage;
+    private DomElement domElement;
+    private DomNodeList domNodeList;
+
+    private String NowType = "";
 
     ///Users/ghy459/Desktop/qunar.xml
 
@@ -54,34 +64,73 @@ public class Crawler {
 
 
             //ArrayList a = (ArrayList) o;
+            ArrayList a;
             switch ((String) this.Task.get(0)) {
 
                 case "form":
                     setHtmlPage(new Form().ExecTask((ArrayList) this.Task.get(1), this.getHtmlPage()));
-                    System.out.println(this.getHtmlPage().getUrl().toString());
-                    Thread.sleep(1000 * 5);
+                    //System.out.println(this.getHtmlPage().getUrl().toString());
+                    //Thread.sleep(1000 * 5);
                     break;
                 case "page":
                     setHtmlPage(new Page().ExecTask((ArrayList) this.Task.get(1), this.getWebClient()));
                     break;
-                /*
                 case "print":
                     tl.add(new Print().AnalyzeElement(e));
                     break;
                 case "search":
-                    tl.add(new Search().AnalyzeElement(e));
+                    if (this.getNowType().equals("DomElement")) {
+                        a = new Search().ExecTask((ArrayList) this.Task.get(1), this.getDomElement());
+                    }
+                    else {
+                        a = new Search().ExecTask((ArrayList) this.Task.get(1), this.getHtmlPage());
+                    }
+                    this.setNowType((String) a.get(0));
+                    if (this.getNowType().equals("DomElement")) {
+                        this.setDomElement((DomElement) a.get(1));
+                    }
+                    else if (this.getNowType().equals("DomNodeList")) {
+                        this.setDomNodeList((DomNodeList) a.get(1));
+                    }
+                    else {
+
+                    }
                     break;
                 case "sleep":
-                    tl.add(new Sleep().AnalyzeElement(e));
+                    new Sleep().ExecTask((ArrayList) this.Task.get(1));
                     break;
                 case "target":
-                    tl.add(new Target().AnalyzeElement(e));
+                    a = new Target().ExecTask((ArrayList) this.Task.get(1), this.getDomNodeList());
+                    this.setNowType((String) a.get(0));
+                    if (this.getNowType().equals("DomElement")) {
+                        this.setDomElement((DomElement) a.get(1));
+                    }
+                    else if (this.getNowType().equals("DomNodeList")) {
+                        this.setDomNodeList((DomNodeList) a.get(1));
+                    }
+                    else {
+
+                    }
                     break;
-                */
                 default:
                     break;
             }
 
+    }
+
+    public String getNowType() {
+
+        return this.NowType;
+    }
+
+    public DomNodeList getDomNodeList() {
+
+        return this.domNodeList;
+    }
+
+    public DomElement getDomElement() {
+
+        return this.domElement;
     }
 
     public HtmlPage getHtmlPage() {
@@ -102,6 +151,21 @@ public class Crawler {
     public void setHtmlPage(HtmlPage htmlPage) {
 
         this.htmlPage = htmlPage;
+    }
+
+    public void setDomElement(DomElement domElement) {
+
+        this.domElement = domElement;
+    }
+
+    public void setDomNodeList(DomNodeList domNodeList) {
+
+        this.domNodeList = domNodeList;
+    }
+
+    public void setNowType (String NowType) {
+
+        this.NowType = NowType;
     }
 
 }
