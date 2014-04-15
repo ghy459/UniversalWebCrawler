@@ -58,7 +58,6 @@ public class Search {
     public ArrayList ExecTask(ArrayList a, DomElement d) {
 
         ArrayList r = new ArrayList();
-        String type = (String) a.get(0);
         DomNodeList l = d.getElementsByTagName((String) a.get(1));
         r.add("DomNodeList");
         r.add(l);

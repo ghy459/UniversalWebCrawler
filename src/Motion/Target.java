@@ -13,7 +13,7 @@ public class Target {
 
     public Target() {
 
-        //{"target", {"S", "E"} }
+        //{"target", {"start", "end", "1"} }
 
     }
 
@@ -23,10 +23,13 @@ public class Target {
         ArrayList tmp = new ArrayList();
 
         tmp.add("target");
-        String path = e.getAttribute("path");
+        String startIndex = e.getAttribute("startIndex");
+        String endIndex = e.getAttribute("endIndex");
+        String step = e.getAttribute("step");
 
-        Parameter.add(path.split("-")[0]);
-        Parameter.add(path.split("-")[1]);
+        Parameter.add(startIndex);
+        Parameter.add(endIndex);
+        Parameter.add(step);
 
         tmp.add(Parameter);
         return tmp;
@@ -37,38 +40,95 @@ public class Target {
 
         String s = (String) a.get(0);
         String e = (String) a.get(1);
+        String p = (String) a.get(2);
 
         Integer start;
         Integer end;
+        Integer step;
 
-        if (s.equals("S")) {
+        if (s.equals("start")) {
             start = 0;
         }
-        else if (s.equals("E")) {
+        else if (s.equals("end")) {
             start = nl.size() - 1;
         }
         else {
             start = Integer.parseInt(s) - 1;
         }
 
-        if (e.equals("S")) {
+        if (e.equals("start")) {
             end = 1;
         }
-        else if (e.equals("E")) {
+        else if (e.equals("end")) {
             end = nl.size();
         }
         else {
             end = Integer.parseInt(e);
         }
 
+        step = Integer.parseInt(p);
+
         ArrayList tmp  = new ArrayList();
-        for (int i = start; i < end; i++) {
+        for (int i = start; i < end; i = i + step) {
 
             DomElement de = (DomElement) nl.item(i);
             tmp.add(de);
         }
         //DomNodeList r = (DomNodeList) tmp;
-        //System.out.println(end - start);
+        //System.out.println(tmp.size());
+        //Thread.sleep(1000 * 5);
+        ArrayList r = new ArrayList();
+        if (end - start == 1) {
+            r.add("DomElement");
+            r.add(tmp.get(0));
+        }
+        else {
+            r.add("ArrayList");
+            r.add(tmp);
+        }
+        return r;
+    }
+
+    public ArrayList ExecTask(ArrayList a, ArrayList nl) throws InterruptedException {
+
+        String s = (String) a.get(0);
+        String e = (String) a.get(1);
+        String p = (String) a.get(2);
+
+        Integer start;
+        Integer end;
+        Integer step;
+
+        if (s.equals("start")) {
+            start = 0;
+        }
+        else if (s.equals("end")) {
+            start = nl.size() - 1;
+        }
+        else {
+            start = Integer.parseInt(s) - 1;
+        }
+
+        if (e.equals("start")) {
+            end = 1;
+        }
+        else if (e.equals("end")) {
+            end = nl.size();
+        }
+        else {
+            end = Integer.parseInt(e);
+        }
+
+        step = Integer.parseInt(p);
+
+        ArrayList tmp  = new ArrayList();
+        for (int i = start; i < end; i = i + step) {
+
+            DomElement de = (DomElement) nl.get(i);
+            tmp.add(de);
+        }
+        //DomNodeList r = (DomNodeList) tmp;
+        //System.out.println(tmp.size());
         //Thread.sleep(1000 * 5);
         ArrayList r = new ArrayList();
         if (end - start == 1) {

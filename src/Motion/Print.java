@@ -35,6 +35,7 @@ public class Print {
             for (Object anE : nl) {
                 DomNode e = (DomElement) anE;
                 System.out.println(e.asText());
+                System.out.println();
             }
         }
         else {
@@ -44,9 +45,9 @@ public class Print {
 
     public void ExecTask(ArrayList a, DomElement e) {
 
-        if (((String) a.get(0)).equals("asText")) {
+        if (a.get(0).equals("asText")) {
             System.out.println(e.asText());
-
+            System.out.println();
         }
         else {
 

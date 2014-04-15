@@ -33,7 +33,7 @@ public class Crawler {
 
     private String NowType = "";
 
-    ///Users/ghy459/Desktop/qunar.xml
+    ///Users/ghy459/Desktop/tmall.xml
 
     public Crawler(ArrayList TaskQueue) throws IOException, InterruptedException {
 
@@ -104,7 +104,12 @@ public class Crawler {
                     new Sleep().ExecTask((ArrayList) this.Task.get(1));
                     break;
                 case "target":
-                    a = new Target().ExecTask((ArrayList) this.Task.get(1), this.getDomNodeList());
+                    if (this.getNowType().equals("ArrayList")) {
+                        a = new Target().ExecTask((ArrayList) this.Task.get(1), this.getDomArray());
+                    }
+                    else {
+                        a = new Target().ExecTask((ArrayList) this.Task.get(1), this.getDomNodeList());
+                    }
                     this.setNowType((String) a.get(0));
                     if (this.getNowType().equals("DomElement")) {
                         this.setDomElement((DomElement) a.get(1));
