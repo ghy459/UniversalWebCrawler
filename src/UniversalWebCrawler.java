@@ -24,6 +24,7 @@ public class UniversalWebCrawler {  //程序入口
 
         System.out.print("请输入配置文件路径：");
         String FileName = b.readLine();
+        System.out.println("");
 
         if (FileName.endsWith(" ")) {   //去掉文件路径的最后一个空格
             FileName = FileName.substring(0, FileName.length() - 1);
